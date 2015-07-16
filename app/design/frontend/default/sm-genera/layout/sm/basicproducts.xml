@@ -1,0 +1,35 @@
+<?xml version="1.0"?>   
+<layout version="1.0">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/basicproducts.css</stylesheet></action>
+        </reference> 
+        <!--<reference name="left">
+        	<block type="basicproducts/home" name="default.basicproducts.list1" after="catalog.leftnav" template="sm/basicproducts/home.phtml"/>
+        </reference>-->       
+    </default>
+	<cms_index_index>
+		<!--<reference name="content-top">
+        	<block type="basicproducts/home" name="default.basicproducts.list1" template="sm/basicproducts/home.phtml">
+        		<action method="setConfig">
+					
+        		</action>
+			</block>
+        </reference>-->
+	</cms_index_index>
+	<catalog_category_view>
+<!--		<reference name="right">        
+			<block type="basicproducts/home" name="bestseller" template="sm/basicproducts/bestseller.phtml" after="scrollbar.list.theme">
+				<action method="setConfig">	
+					<values>
+						<product_limitation>5</product_limitation>
+						<product_category>93</product_category>
+						<product_cart_or_status>0</product_cart_or_status>
+						<product_title_disp>1</product_title_disp>
+					</values>
+				</action>
+		   </block>
+		</reference>-->
+	</catalog_category_view>	
+</layout>   
+	

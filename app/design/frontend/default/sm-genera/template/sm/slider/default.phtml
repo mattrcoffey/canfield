@@ -1,0 +1,149 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Slider - Version 1.1
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+$options = $this->getConfigObject();
+$uniqued ='container_slider_'.rand().time();
+$smarthelper= Mage::helper('slider/utils');
+$list = $this->getProducts();
+if(!empty($list)){?>
+	<div class="clr"></div>
+<div class="wrap-brand">	
+	<?php echo $this->getScriptTags();?>
+	<?php if(!empty($options->pretext)) { ?>
+		<div class="pre-text"><?php echo $options->pretext; ?></div>
+	<?php } ?>
+	<div class="page-title-slider"><?php echo $this->__('Our Brands'); ?></div>
+	<div id="<?php echo $uniqued; ?>" class="container-slider" style="<?php if( $options->anchor == "bottom" ){ echo "margin-bottom:40px;"; }?>">
+			
+			<?php if($options->anchor =="top"){?>
+			<?php if($options->button_display == 1){?>
+			<div class="page-button <?php echo $options->anchor;?> <?php echo $options->control;?>">
+				<ul class="control-button">
+					<li class="preview">Prev</li>
+					<li class="next">Next</li>
+				</ul>		
+			</div>
+			<?php }}?>
+	
+		<div class="slider not-js cols-6 <?php echo $options->deviceclass_sfx; ?>">
+			<div class="vpo-wrap">
+				<div class="vp">
+					<div class="vpi-wrap">
+					<?php foreach($list as $item){?>
+						<div class="item">
+							<div class="item-wrap">
+								<div class="item-img item-height">
+									<div class="item-img-info">
+										<a href="<?php echo $item['link'];?>" onclick="javascript: return true">
+										<?php if( $options->product_source == "catalog" ){?>
+											<img src="<?php echo $item['image'];?>" alt="<?php echo $item['title']; ?>" title="<?php echo $item['title']; ?>" />
+										<?php }else{?>
+											<img  src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$item['image'] ?>"  alt="<?php echo $item['title'] ?>" />	
+										<?php }?>
+										</a>
+									</div>
+								</div>
+								<div class="item-info <?php if( $options->theme == "theme2" ){ echo "item-spotlight"; }?> ">
+									<div class="item-inner">
+									<?php if( $options->product_title_disp == 1 ){?>
+										<div class="item-title">
+											<a href="<?php echo $item['link'];?>">
+												<?php echo $item['title'];?>
+											</a>
+										</div>
+									<?php }?>
+										<div class="item-content">
+										<?php if( $options->product_description_disp == 1 ){?>
+											<div class="item-des">
+												<?php echo $item['desc'];?>									
+											</div>
+										<?php }?>
+										<?php if($options->product_reviews_count == 1){ ?>
+										<div class="item-review">
+											<?php echo $item['review']; ?>
+										</div><!--end item-review-->
+										<?php }					 
+										if( (int)$options->product_price_disp ){ ?>
+											<div class="item-price">
+												<div class="sale-price">
+												<?php echo $item['price'];?>
+												</div>
+											</div>
+										<?php }?>										
+										<?php if( $options->product_readmore_disp == 1 ){?>
+										<div class="item-read">
+											<a href="<?php echo $item['link'];?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?>>
+												<?php echo $options->product_readmore_text; ?>
+											</a>
+										</div>	
+										<?php }?>							
+										</div>	
+										<?php if( $options->theme == "theme2" ){
+											if( $options->product_title_disp == 1 || $options->product_description_disp == 1 || $options->product_readmore_disp == 1 ){?>
+											<div class="item-bg"></div>				
+										<?php }}?>		
+									</div>
+								</div>						
+							</div>
+						</div>
+					<?php }?>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<?php if($options->anchor !="top"){?>
+			<?php if($options->button_display == 1){?>
+			<div class="page-button <?php echo $options->anchor;?> <?php echo $options->control;?>">
+				<ul class="control-button">
+					<li class="preview">Prev</li>
+					<li class="next">Next</li>
+				</ul>		
+			</div>
+		<?php }}?>
+		
+	</div>
+	<?php if(!empty($options->posttext)) {  ?>
+		<div class="post-text"><?php echo $options->posttext; ?></div>
+	<?php } ?>
+<?php }else {echo $this->__('Has no item to show!');}?>
+
+<script type="text/javascript">
+//<![CDATA[
+    jQuery(document).ready(function($){
+        $('#<?php echo $uniqued;?> .slider').responsiver({
+            interval: 0<?php //echo $options->delay;?>,
+            speed: <?php echo $options->duration;?>,
+            start: <?php echo $options->start -1;?>,
+            step: <?php echo $options->scroll;?>,
+            circular: true,
+            preload: true,
+			fx: 'slide',
+            pause: 'hover',
+            control:{
+				prev: '#<?php echo $uniqued;?> .control-button li[class="preview"]',
+				next: '#<?php echo $uniqued;?> .control-button li[class="next"]'
+            },
+			getColumns: function(element){
+				var match = $(element).attr('class').match(/cols-(\d+)/);
+				if (match[1]){
+					var column = parseInt(match[1]);
+				} else {
+					var column = 1;
+				}
+				if (!column) column = 1;
+				return column;
+			}          
+        });
+    });
+//]]>
+</script>
+</div>
+
+

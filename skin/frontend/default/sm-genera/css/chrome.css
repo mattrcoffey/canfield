@@ -1,0 +1,13 @@
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_1column, 
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_2columns, 
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_3columns, 
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_4columns, 
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_5columns, 
+.sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu .sm_megamenu_dropdown_6columns{
+	top: 52px !important;
+}
+.sm-megamenu-child.sm_megamenu_dropdown_3columns{
+	right: auto !important;
+}
+.more-views ul li{ width: 85px !important; }
+#checkoutSteps .control input{ margin: 1px 5px 0 0 !important;}

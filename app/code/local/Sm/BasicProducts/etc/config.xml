@@ -1,0 +1,121 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<models>
+			<basicproducts>
+				<class>Sm_BasicProducts_Model</class>
+			</basicproducts>
+		</models>
+		<blocks>
+			<basicproducts>
+				<class>Sm_BasicProducts_Block</class>
+			</basicproducts>
+		</blocks>
+		<helpers>
+			<basicproducts>
+				<class>Sm_BasicProducts_Helper</class>
+			</basicproducts>
+		</helpers>
+		<resources>
+			<basicproducts_setup>
+				<setup>
+					<module>Sm_BasicProducts</module>
+				</setup>
+			</basicproducts_setup>
+		</resources>
+	</global>
+	<frontend>
+		<routers>
+			<basicproducts>
+				<use>standard</use>
+				<args>
+					<module>Sm_BasicProducts</module>
+					<frontName>basicproducts</frontName>
+				</args>
+			</basicproducts>
+		</routers>
+		<layout>
+			<updates>
+				<basicproducts module="Sm_BasicProducts">
+					<file>sm/basicproducts.xml</file>
+				</basicproducts>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<Sm_BasicProducts>
+					<files>
+						<default>Sm_BasicProducts.csv</default>
+					</files>
+				</Sm_BasicProducts>
+			</modules>
+		</translate>
+	</frontend>
+	<adminhtml>
+		<translate>
+			<modules>
+				<Sm_BasicProducts>
+					<files>
+						<default>Sm_BasicProducts.csv</default>
+					</files>
+				</Sm_BasicProducts>
+			</modules>
+		</translate>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<basicproducts_cfg translate="title" module="basicproducts">
+											<title>SM Basic Products Settings</title>
+										</basicproducts_cfg>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+	<default>
+		<basicproducts_cfg module="basicproducts">
+			<general>
+				<title>SM Basic Products</title>
+				<num_columns>3</num_columns>
+			</general>
+			<product_selection>
+				<product_source>catalog</product_source>
+				<product_category></product_category>
+				<product_ids></product_ids>
+				<product_order_by>random</product_order_by>
+				<product_order_dir>ASC</product_order_dir>
+				<product_limitation>12</product_limitation>
+			</product_selection>
+
+			<product_display_setting>
+				<product_image_disp>1</product_image_disp>
+				<product_image_width>135</product_image_width>
+				<product_image_height></product_image_height>
+
+				<product_title_disp>1</product_title_disp>
+				<product_title_max_length>25</product_title_max_length>
+
+				<product_description_disp>1</product_description_disp>
+				<product_description_src>short_description</product_description_src>
+				<product_description_strip_tags>0</product_description_strip_tags>
+				<product_description_keep_tags></product_description_keep_tags>
+				<product_description_max_length>40</product_description_max_length>
+
+				<product_price_disp>1</product_price_disp>
+				<product_rating_summary>1</product_rating_summary>
+				<product_cart_or_status>1</product_cart_or_status>
+				<product_addtocompare>1</product_addtocompare>
+				<product_addtowishlist>1</product_addtowishlist>
+			</product_display_setting>
+		</basicproducts_cfg>
+	</default>
+</config>

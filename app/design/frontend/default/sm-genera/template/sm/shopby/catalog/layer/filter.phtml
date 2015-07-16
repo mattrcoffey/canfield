@@ -1,0 +1,53 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Shop By - Version 1.0
+ # Copyright (c) 2014 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/?>
+
+<ol>
+    <?php foreach ($this->getItems() as $_item): 
+     $label = explode("_", $_item->getLabel());
+    ?>
+        <li>          
+            <?php if ($_item->getCount() > 0): ?>
+                <input style="display:none" type="checkbox"<?php if ($_item->isSelected()): ?> checked="checked" <?php endif; ?>
+                <?php if ($this->helper('sm_shopby')->isAjaxEnabled()): ?>
+                           onclick="$(this).next().click()"
+                       <?php else: ?>
+                           onclick="setLocation('<?php echo ($_item->isSelected()) ? $this->urlEscape($_item->getRemoveUrl()) : $this->urlEscape($_item->getUrl()) ?>')"
+                       <?php endif; ?>
+                       />
+                <a 
+                <?php if ($_item->isSelected()): ?>
+                        onclick="$(this).previous().checked = false;" 
+                    <?php else: ?>
+                        onclick="$(this).previous().checked = true;" 
+                    <?php endif; ?>                            
+                    href="<?php echo ($_item->isSelected()) ? $_item->getRemoveUrl() : $_item->getUrl() ?>"
+                    >
+                    <?php if($label[1] == ''){?>                    
+                    <div class="wrap-checker"><span <?php if ($_item->isSelected()): ?> class="checked" <?php endif; ?>></span></div>
+                    <?php }else{ ?>
+                    <?php 
+                    if ($_item->isSelected()){
+                        echo "<div class='item-color checked' style='background:".$label[1]."'></div>"; 
+                    }else{
+                        echo "<div class='item-color' style='background:".$label[1]."'></div>"; 
+                    }
+                    ?>
+                    <?php }?>
+                    <?php                      
+                      echo $label[0];
+                     ?></a>
+                <?php else: ?>
+                    <?php                      
+                      echo $label[0];
+                      ?>
+                <?php endif; ?>
+            (<?php echo $_item->getCount() ?>)
+        </li>
+    <?php endforeach ?>
+</ol>

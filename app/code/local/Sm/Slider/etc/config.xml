@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<config>
+	<global>
+		<models>
+            <slider>
+                <class>Sm_Slider_Model</class>
+            </slider>
+        </models>
+		<blocks>
+            <slider>
+                <class>Sm_Slider_Block</class>
+            </slider>            		
+        </blocks>				
+		<helpers>
+            <slider>
+                <class>Sm_Slider_Helper</class>
+            </slider>
+        </helpers>
+        <resources>
+        	<slider_setup>
+        		<setup>
+        			<module>Sm_Slider</module>
+        		</setup>
+        	</slider_setup>
+        </resources>
+	</global>
+	<frontend>
+        <routers>
+			<slider>
+                <use>standard</use>
+                <args>
+                    <module>Sm_Slider</module>
+                    <frontName>slider</frontName>
+                </args>
+            </slider>
+        </routers>
+		<layout>
+            <updates>
+                <slider module="Sm_Slider">
+					<file>sm/slider.xml</file>
+                </slider>
+            </updates>
+        </layout>
+        <translate>
+      		<modules>
+          		<Sm_Slider>
+                     <files>
+                          <default>Sm_Slider.csv</default>
+                     </files>
+                </Sm_Slider>
+            </modules>
+        </translate>
+	</frontend>
+	<adminhtml>
+        <translate>
+      		<modules>
+          		<Sm_Slider>
+                     <files>
+                          <default>Sm_Slider.csv</default>
+                     </files>
+                </Sm_Slider>
+            </modules>
+        </translate>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>										
+										<slider_cfg translate="title" module="slider">
+											<title>SM Slider Settings</title>
+										</slider_cfg>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</adminhtml>
+	<default>
+        <slider_cfg>
+        	<general>
+                <isenabled>1</isenabled>
+                <title>SM Slider</title>
+            </general>
+			<module_setting>
+				<slider_title_text>Title Slider</slider_title_text>
+				<product_links_target>_self</product_links_target>
+				<theme>theme1</theme>
+				<button_display>1</button_display>
+				<control>style</control>
+				<anchor>top</anchor>				
+			</module_setting>
+			
+            <product_selection>
+				<product_source>catalog</product_source>
+            	<product_category></product_category>
+            	<product_order_by></product_order_by>
+            	<product_order_dir></product_order_dir>
+            	<product_limitation>7</product_limitation>
+            </product_selection>
+				
+			<product_display_setting>
+				<product_title_disp>1</product_title_disp>
+				<product_title_max_characters>20</product_title_max_characters>
+				
+				<product_image_width>200</product_image_width>
+				<product_image_height>200</product_image_height>
+				
+				<product_description_disp>1</product_description_disp>
+				<product_description_max_characters>150</product_description_max_characters>
+				<item_description_striptags>1</item_description_striptags>
+				<item_description_keeptags></item_description_keeptags>				
+				<product_readmore_disp>1</product_readmore_disp>
+				<product_readmore_text>Details</product_readmore_text>
+				<product_price_disp>1</product_price_disp>
+				<product_reviews_count>1</product_reviews_count>				
+			</product_display_setting>
+			
+            <effect_setting>
+            	<start>1</start>
+            	<scroll>1</scroll>
+            	<duration>800</duration>
+				<delay>2500</delay>
+            </effect_setting>
+			
+            <advanced>
+            	<include_jquery>1</include_jquery>
+				<deviceclass_sfx>preset01-4 preset02-3 preset03-2 preset04-2 preset05-1</deviceclass_sfx>
+            	<pretext></pretext>
+            	<posttext></posttext>
+            </advanced>
+			
+        </slider_cfg>
+    </default>
+</config>

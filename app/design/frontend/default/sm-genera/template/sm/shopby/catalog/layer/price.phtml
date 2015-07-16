@@ -1,0 +1,63 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Shop By - Version 1.0
+ # Copyright (c) 2014 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/?>
+
+<div id="price-filter" class="price_filter">
+    <span id="price-filter-min" class="price-from" title="Minimum value"></span>
+    <span id="price-filter-max" class="price-to" title="Maximum value"></span>
+</div>
+<ul>
+    <li>
+        <span style="float:left"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();?></span>
+        <span id="price-filter-min-display"><?php echo $this->getCurrentMinPriceFilter(); ?></span>
+        
+        <span id="price-filter-max-display"><?php echo $this->getCurrentMaxPriceFilter(); ?></span>
+        <span style="float:right"><?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol();?></span>
+        
+    </li>
+</ul>
+
+<script type="text/javascript">
+    priceSliderUrl = '<?php echo $this->getUrlPattern(); ?>';
+    
+    <?php if (!$this->getRequest()->isAjax()): ?>
+    function priceEvent(val) {
+        if (val) {
+            var url = priceSliderUrl.replace('__PRICE_VALUE__', val);
+            <?php if ($this->helper('sm_shopby')->isAjaxEnabled()): ?>
+            handleEvent(url);
+            <?php else: ?>
+            window.location.href = url;    
+            <?php endif; ?>
+        }
+    }
+    <?php endif; ?>
+    
+    maxPrice = <?php echo $this->getMaxPriceFloat(); ?>;
+    minPrice = <?php echo $this->getMinPriceFloat(); ?>;
+	timerSlider = null;
+    new Control.Slider([$('price-filter-min'), $('price-filter-max')], 'price-filter', {
+        range: $R(minPrice, maxPrice),
+        sliderValue: [<?php echo $this->getCurrentMinPriceFilter(); ?>, <?php echo $this->getCurrentMaxPriceFilter(); ?>],
+        values: $R(minPrice, maxPrice),
+
+        restricted: true,
+        onChange: function(val){
+            if (val[0] != <?php echo $this->getCurrentMinPriceFilter(); ?> || val[1] != <?php echo $this->getCurrentMaxPriceFilter(); ?>) {
+				if (timerSlider) {
+					clearTimeout(timerSlider);
+				}
+				timerSlider = setTimeout(priceEvent, 1000, val.join('-'));
+            }
+        },
+        onSlide: function(val){ 
+            $('price-filter-max-display').innerHTML = val[1];
+            $('price-filter-min-display').innerHTML = val[0];
+        }
+    });
+</script>

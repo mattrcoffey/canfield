@@ -1,0 +1,168 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Tab Listing - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+$smarthelper = Mage::helper('tablisting/utils');
+$options  = $this->getConfigObject();
+$maxtitle = $options->item_title_max_characs;
+$post     = Mage::app()->getRequest()->getPost();
+$is_ajax  = $post['is_ajax'];
+$cat_id   = $post['tab_cat_id'];
+$order_id = $params['order_id'];
+$count    = $post['ajax_tablisting_start'];
+
+if( $is_ajax ){ 
+	$type     =  $post['data_type'];
+	if( $type == 'order' ){
+		$child_items = $this->getProductsOrder($order_id);
+	} else {
+		$child_items = $this->getProducts($cat_id);
+	}
+}
+if( !empty($child_items) ) { 
+	if( $is_ajax ){
+		$k = $count;
+	} else {
+		$k = 0;
+	}
+	foreach( $child_items  as $item ){ $k++; 
+		$_product = Mage::getModel('catalog/product')->load($item->id);
+		$now = date("Y-m-d H:m:s");
+        $newsFrom= $_product->getNewsFromDate();
+        $newsTo=  $_product->getNewsToDate();
+        $specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
+        $special_from_date = $_product->getSpecialFromDate();
+        $special_to_date = $_product->getSpecialToDate();
+	?>
+	<div class="item respl-item">
+		<div class="item-tmp"></div>
+		<div class="item-inner">
+			<?php                          
+                if($newsFrom != ''){                            
+                if (($now>=$newsFrom && $now<=$newsTo)||($now>=$newsFrom && $newsTo =='')){  ?>
+                    <div class='new-item'></div>
+                <?php }
+                }else{
+                if(($newsTo != "") && $newsTo >= $now){ 
+                ?>
+                    <div class='new-item'></div>
+                <?php }
+                }
+                if (($specialprice && ($special_from_date <= $now) && ($special_to_date >= $now || $special_to_date =="" ))){?>
+                    <div class='sale-item'>
+                        <span>
+                        <?php
+                        //$saleof= abs(($specialprice/($_product->getPrice()))*100-100);?>
+                        <?php   //print_r(floor($saleof)); ?>
+                        </span>
+                    </div>
+            <?php }
+            ?>  
+			<div class="item-image">
+				
+				<!--SHOW 2 IMAGE FOR PRODUCTS-->
+                <?php $_media = Mage::getModel('catalog/product')->load($_product->getId())->getMediaGalleryImages() ?>
+                
+                <?php $count_item=0; $check_img=0;?>
+                
+                <?php $check_img = count($_media);?>
+                
+                <a class="product-image <?php if ($check_img >= 2) echo $this->__('rspl-image');?>" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>">   
+                
+                   <img class="first_image" src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /> 
+
+                    <?php if ($check_img >= 2): ?>
+                        <?php 
+                        $flag=0;
+                        foreach($_media as $_img): ?>
+                                <?php $count_item++;?>
+                                <?php if ($_img->getFile() == $_product->getSmallImage()){
+                                    if($count_item==$check_img){
+                                    	$flag = 0;
+                                	}else{
+                                		$flag = 1;
+                                	}
+                                    continue;
+                                }  ?>
+                                <?php if($flag==1) { ?>
+                                <img class="last_image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_img->getFile())->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true); ?>" />
+                                <?php  break; }?>
+                        <?php endforeach; ?>
+                   		<?php 
+                   			if($flag==0){
+                   				foreach($_media as $_img){ ?>
+                   				 <img class="last_image" src="<?php echo $this->helper('catalog/image')->init($_product, 'image', $_img->getFile())->constrainOnly(true)->keepAspectRatio(true)->keepFrame(false)->resize(270); ?>" alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true); ?>" />
+                   			<?php break; }
+                   			}
+                   		?>
+                    <?php endif?>
+                
+                <!--END SHOW 2 IMAGE FOR PRODUCTS-->	
+
+
+
+				</a>
+			</div>		
+			
+		</div>
+		<?php if( $options->item_title_display == 1 || $options->item_desc_display == 1 || $options->item_price_disp == 1 || $options->item_review_disp == 1 || $options->item_cart_disp == 1 || $options->item_wishlist_disp == 1 || $options->item_compare_disp == 1 ){?>
+			<div class="item-info">
+				<div class="info1"> 
+					<?php if( $options->item_title_display == 1 ){?>
+					<h2 class="product-name">
+						<a href="<?php echo $item->link ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true"  title="<?php echo $item->title?>" >
+							<?php echo $item->title; ?>
+						</a>
+					</h2>
+					<?php }?>
+					<?php if( $options->item_price_disp == 1 ) {	?>				
+					<?php echo $item->price_html; ?>				
+					<?php }?>
+					<div class="w-temp2">
+                        <?php if($_product->isSaleable()): ?>
+                            <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                        <?php else: ?>
+                            <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                        <?php endif; ?>
+                        <?php if( $options->item_review_disp == 1 ) {?>	
+                        <?php echo $this->getReviewsSummaryHtml($_product, 'short') ?>
+                        <?php }?>
+						
+                    </div>    
+				</div>		
+				<div class="w-action">
+                    <div class="actions">                            
+                        <ul class="add-to-links">
+                            <?php if ($this->helper('wishlist')->isAllow() && $options->item_wishlist_disp == 1 ) : ?>
+                                <li><a href="<?php echo $this->helper('wishlist')->getAddUrl($_product) ?>" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+                            <?php endif; ?>
+	                           <?php if( $options->item_compare_disp == 1 && $_compareUrl=$this->getAddToCompareUrl($_product)):
+	                        $_compareUrl=$this->getAddToCompareUrl($_product);
+	                        ?>
+                                <li><span class="separator">|</span> <a href="<?php echo $_compareUrl ?>" class="link-compare"><?php echo $this->__('Add to Compare') ?></a></li>
+                            <?php endif; ?>
+                        </ul>
+                    </div>
+                </div> 		
+				<?php if( $options->item_desc_display == 1 ) {?>
+				<div class="item-desc">
+					<?php echo $item->description; ?>
+				</div>
+				<?php }?>
+            </div>
+        <?php }?>    
+	</div>
+	<?php $clear = 'clr1';
+	if ($k % 2 == 0) $clear .= ' clr2';
+	if ($k % 3 == 0) $clear .= ' clr3';
+	if ($k % 4 == 0) $clear .= ' clr4';
+	if ($k % 5 == 0) $clear .= ' clr5';
+	if ($k % 6 == 0) $clear .= ' clr6';
+	?>
+	<div class="<?php echo $clear; ?>"></div>
+<?php }}?>

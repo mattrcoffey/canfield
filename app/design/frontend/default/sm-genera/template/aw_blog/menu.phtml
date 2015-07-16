@@ -1,0 +1,105 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.2.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?>
+    <!--
+	<div class="block-title">
+        <strong><span><?php echo Mage::getStoreConfig('blog/blog/title'); ?></span></strong>
+    </div>
+	-->
+	
+    <div class="block lastest-blogs">
+		<div class="block-title">
+			<strong>
+				<span><?php echo $this->__('Recent Posts');?></span>
+			</strong>
+		</div>
+        <?php if ($posts = $this->getRecent()): ?>
+            <div class="block-content menu-recent">
+               
+                <ul class="blog-list-left">
+					<?php $i = 0;?>
+                    <?php foreach ($posts as $post): ?>
+                        <li class="item-bl">
+							<div class="date-blog-left">
+								<?php $date_create = $post->getCreatedTime();?>
+								<div class="d-blog">
+									<?php 
+										$day_blog = date("d",strtotime($date_create));
+										echo $day_blog;
+									?>
+								</div>
+								<div class="m-y-blog">
+									<?php 
+										$month_blog = date("M",strtotime($date_create));
+										echo $month_blog;
+									?>
+									<?php 
+										$year_blog = date("y",strtotime($date_create));
+										echo $year_blog;
+									?>
+								</div>
+								
+							</div>
+							<div class="info-blog-w">
+								<a class="blog-title-link" href="<?php echo $post->getAddress(); ?>" ><?php echo $post->getTitle(); ?></a>
+								
+								<?php if ($this->getCommentsEnabled()): ?>
+									<div class="comment-blog">
+										<a class="link-comment" href="<?php echo $post->getAddress(); ?>#commentBox" ><?php echo $post->getCommentCount(); ?>  <?php if($post->getCommentCount()<=1) echo $this->__('Comment'); ?>  <?php if($post->getCommentCount()>1) echo $this->__('Comments'); ?></a> 
+									</div>
+								<?php endif; ?>
+							</div>
+						</li>
+						<?php $i++;?>
+                    <?php endforeach; ?>
+                </ul>
+            </div>	
+        <?php endif; ?>
+	</div>
+	
+	<div class="block blog-categories">
+		<div class="block-title">
+			<strong>
+				<span><?php echo $this->__('Categories');?></span>
+			</strong>
+		</div>
+        <?php if ($this->getCategories()->count() && Mage::getStoreConfig('blog/menu/category')): ?>  
+            <div class="block-content menu-categories">
+                
+                <ul class="categories-links">
+                    <?php $cats = $this->getCategories(); ?>
+                    <?php foreach ($cats as $cat): ?>
+                        <li class="item-cat"><a href="<?php echo $cat->getAddress(); ?>" ><?php echo $cat->getTitle(); ?></a></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>	
+        <?php endif; ?>
+
+        <?php echo $this->getChildHtml('blog_tags'); ?>
+    </div>
+

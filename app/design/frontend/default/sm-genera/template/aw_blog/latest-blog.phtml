@@ -1,0 +1,91 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This package designed for Magento community edition
+ * aheadWorks does not guarantee correct work of this extension
+ * on any other Magento edition except Magento community edition.
+ * aheadWorks does not provide extension support in case of
+ * incorrect edition usage.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Blog
+ * @version    1.2.1
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+
+$posts = $this->getPosts();
+$countitem = count($posts) ;
+?>
+
+<!---------------------------------------------------------->
+<div class="block home-products">
+<div class="block-title">
+	<strong>
+		<span><?php echo $this->__('Latest Blogs');?></span>
+	</strong>
+</div>
+
+<ul class="grid-blog">
+	<?php $i=1; foreach ($posts as $post): ?>
+		<li class="item">
+			<div class="item-latest-blog">
+				<?php if($i==1){?>
+				<div class="item-lb-image">
+					
+					<a title="<?php echo substr($post->getTitle(),0,25);?>" href="<?php echo $post->getAddress(); ?>">
+						<img alt="<?php echo substr($post->getTitle(),0,25);?>" src="<?php echo  Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_MEDIA).$post->getPostImage();?>"> 
+					</a>
+				</div>
+				<?php }?>
+				<div class="lt-blog-info <?php if($i==1) echo $this->__('info-first-blog')?>">
+					<div class="item-lb-title">
+						<a title="<?php echo substr($post->getTitle(),0,25);?>" href="<?php echo $post->getAddress(); ?>"><span><?php echo substr($post->getTitle(),0,25); ?></span>
+						</a>
+					</div>
+					<div class="w-agoday">
+						<?php
+							$date = $post->getCreatedTime();
+							$date = strtotime($date);
+							$date = strtotime("-1 day", $date);
+						?>
+						<span class="ago">
+							<?php 
+								$date1 = strtotime($post->getCreatedTime());
+								$date2 = time();
+								$subTime = $date2 - $date1;
+								$diff_time = ($subTime/(60*60*24))%365;
+								echo $diff_time ?> <?php echo ($diff_time >1)?Mage::helper('blog')->__('days ago'):Mage::helper('blog')->__('day ago'); 
+							?>
+						</span>
+					</div>
+					<div class="item-lb-description">
+						<?php echo substr(strip_tags($post->getShortContent()),0,120);  ?>
+					</div>
+				</div>
+				<!--
+				<?php if ($this->getCommentsEnabled()): ?>
+					<div class="comment-blog">
+						<a class="link-comment" href="<?php echo $post->getAddress(); ?>#commentBox" ><?php echo $post->getCommentCount(); ?>  <?php if($post->getCommentCount()<=1) echo $this->__('Comment'); ?>  <?php if($post->getCommentCount()>1) echo $this->__('Comments'); ?></a> 
+					</div>
+				<?php endif; ?>
+				-->
+			</div>
+		</li>
+		<?php $i++;?>
+		<?php if($i==5) break;?>
+		<?php endforeach; ?>
+</ul>
+</div>

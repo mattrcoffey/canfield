@@ -1,0 +1,38 @@
+.price_filter{
+	height: 6px;
+	background: #fff;
+	padding-top: 1px;
+	margin: 10px 0;
+}
+.price_filter .price-from ,
+.price_filter .price-to {
+    height: 14px;
+    width: 13px;
+    cursor: e-resize;
+    display: block;
+	margin-top: -5px;
+	background: #898989;
+}
+.price_filter .price-to {
+    cursor: w-resize;
+    margin-top: -14px;
+}
+#price-filter-max-display{
+	float: right;
+}
+#loading{
+	background: #000;
+	opacity: 0.9;
+	filter: alpha( opacity=50 );
+	z-index: 999999;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0; left: 0;
+}
+#loading .loader{
+	position: absolute;
+	top: 50%; left: 50%;
+	margin: -40px 0 0 -110px;
+
+}
