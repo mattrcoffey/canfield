@@ -1,0 +1,129 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2012 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php if(count($this->getItemCollection()->getItems())): ?>
+<div class="wrap-upsell_pro">  
+<div id="upsell_pro" class="container-slider products-grid block">    
+    <div class="block-title"><strong><?php echo $this->__('Upsell Products') ?></strong></div>
+    <div class="page-button ">
+        <ul class="control-button">
+            <li class="preview"></li>
+            <li class="next"></li>
+        </ul>       
+    </div>
+    <div class="slider not-js cols-6 preset01-4 preset02-4 preset03-3 preset04-1 preset05-1 js-loaded">
+        <div class="vpo-wrap">
+            <div class="vp">
+                <div class="vpi-wrap">  
+                            <!--<div class="products-grid">
+                        <div class="row-fluid"> --> 
+                <?php $this->resetItemsIterator() ?>
+                <?php for($_i=0;$_i<$this->getRowCount();$_i++): ?>
+
+                    <?php for($_j=0;$_j<$this->getColumnCount();$_j++): ?>
+                        <?php if($_product=$this->getIterableItem()): ?>
+                        <?php 
+                        $now = date("Y-m-d");
+                        $newsFrom= substr($_product->getData('news_from_date'),0,10);
+                        $newsTo=  substr($_product->getData('news_to_date'),0,10);
+                        $specialprice = Mage::getModel('catalog/product')->load($_product->getId())->getSpecialPrice(); 
+                        
+                        ?>
+                            
+                                <div class="item ">
+                                    <div class="item-tmp"></div>
+
+                                    <div class="item-inner">   
+                                            <div class="item-image">
+                                                <a class="product-image" href="<?php echo $_product->getProductUrl() ?>" title="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" ><img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->keepAspectRatio(false)->resize(300,270); ?>"  alt="<?php echo $this->stripTags($this->getImageLabel($_product, 'small_image'), null, true) ?>" /></a>
+                                            </div>                        
+                                            
+                                           
+                                    </div>
+                                    <div class="item-info">
+                                        <div class="info1">
+                                           <h2 class="product-name"><a href="<?php echo $_product->getProductUrl() ?>"><?php echo $this->escapeHtml($_product->getName()) ?></a></h2>    
+                                           <?php echo $this->getPriceHtml($_product, true) ?> 
+                                           <div class="w-temp2">
+                                            <?php if($_product->isSaleable()): ?>
+                                                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="setLocation('<?php echo $this->getAddToCartUrl($_product) ?>')"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                                            <?php else: ?>
+                                                <p class="availability out-of-stock"><span><?php echo $this->__('Out of stock') ?></span></p>
+                                            <?php endif; ?>
+                                            
+                                            <?php echo $this->getReviewsSummaryHtml($_product,'short') ?>
+                                            
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                </div>  
+                        <?php endif; ?>
+                    <?php endfor; ?>
+                    
+                <?php endfor; ?>
+                    <!--</div>
+                    </div>  -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>  
+<script type="text/javascript">
+
+//<![CDATA[
+    jQuery(document).ready(function($){
+        $('#upsell_pro .slider').responsiver({
+            interval: 0,
+            speed: 800,
+            start: 0,
+            step: 1,
+            circular: true,
+            preload: true,
+            fx: 'slide',
+            pause: 'hover',
+            control:{
+                prev: '#upsell_pro .control-button li[class="preview"]',
+                next: '#upsell_pro .control-button li[class="next"]'
+            },
+            getColumns: function(element){
+                var match = $(element).attr('class').match(/cols-(\d+)/);
+                if (match[1]){
+                    var column = parseInt(match[1]);
+                } else {
+                    var column = 1;
+                }
+                if (!column) column = 1;
+                return column;
+            }          
+        });
+        $('.atc').tooltip();
+    });
+//]]>
+</script>
+<?php endif ?>

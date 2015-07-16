@@ -1,0 +1,25 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Tab Listing - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+?>
+<div class="respl-tabs-wrap">	
+	<div class="respl-tabs cf">
+		<?php foreach($list as $tab){ ?>
+		<div class="respl-tab button <?php echo isset($tab->sel)?'  tab-sel tab-loaded':''; ?>" data-type="<?php echo $options->type_tab_display; ?>" config-categoryid="<?php echo $options->product_category; ?>" data-category-id="<?php echo $tab->id; ?>" data-order-id="<?php echo $tab->orderid; ?>" data-active-content=".items-category-<?php echo ($tab->id == "*")?'all':$tab->id; ?>">
+			<span class="respl-tab-label"><?php 
+			if($tab->id == "*"){
+				echo "All Products"; 
+			}else{
+				echo $tab->title; 
+			}
+			?>
+			</span>
+		</div>
+		<?php }?>
+	</div>
+</div>

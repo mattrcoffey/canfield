@@ -1,0 +1,172 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM QuickView - Version 2.0.0
+ # Copyright (c) 2014 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+	if(!(int)Mage::getStoreConfig('quickview/general/active')) return;
+	echo $this->getCssJsHtml();
+	$_package_name = Mage::getSingleton('core/design_package')->getPackageName();
+	$_template_name = Mage::getSingleton('core/design_package')->getTheme('template');
+	$_condition_default =  ($_package_name == 'base' || ($_package_name == 'default' && ($_template_name == 'default' || $_template_name == 'iphone' || $_template_name == 'blank' || $_template_name == 'modern'))) ? 'true' : 'false';
+	$_condition_rwd = ($_package_name == 'rwd' && $_template_name == 'default') ? 'true' : 'false';
+ ?>
+ 
+<script type="text/javascript">
+	//<![CDATA[
+	jQuery(document).ready(function ($) {
+		var _check_tem_def = <?php  echo $_condition_default ?>,
+			_ceck_tem_rwd  = <?php  echo $_condition_rwd ?> ;
+	   function _SmQuickView(){	
+			var	pathbase = 'quickview/index/view',
+				_item_cls = $('<?php echo Mage::getStoreConfig('quickview/general/item_class') ;?>'),
+				_base_url = '<?php echo str_replace("index.php/","",$this->getUrl()) ?>',
+				pathbase = 'quickview/index/view';
+			var baseUrl = _base_url + pathbase;
+			if(_item_cls.length > 0){
+				_item_cls.each(function(index, el) {
+					var $this = $(this)
+					if($this.find("a.sm_quickview_handler").length <= 0){
+						if( $this.find('a').length > 0 ){
+							var _href =	$($this.find('a')[0]);				
+							var	producturlpath = _href.attr('href').replace(_base_url,"");
+								producturlpath = ( producturlpath.indexOf('index.php') >= 0 ) ? producturlpath.replace('index.php/','') : producturlpath;
+							var	reloadurl = baseUrl+ ("/path/"+producturlpath).replace(/\/\//g,"/"),
+								_quickviewbutton = "<a  class='button sm_quickview_handler' href='"+reloadurl+"'><?php echo Mage::getStoreConfig('quickview/general/label_button') ;?></a>";
+							$(el).append(_quickviewbutton);	
+						}
+					}
+				});
+			}
+		}
+		w = '<?php echo Mage::getStoreConfig('quickview/general/popup_width');?>';
+		h = '<?php echo Mage::getStoreConfig('quickview/general/popup_height');?>';
+		w1 = '<?php echo Mage::getStoreConfig('quickview/general/popup_width_1');?>';
+		h1 = '<?php echo Mage::getStoreConfig('quickview/general/popup_height_1');?>';
+		w2 = '<?php echo Mage::getStoreConfig('quickview/general/popup_width_2');?>';
+		h2 = '<?php echo Mage::getStoreConfig('quickview/general/popup_height_2');?>';
+
+		cur_w = $( window ).width();
+
+		if(cur_w > 1025 && cur_w <= 1280 ){
+			w = w2;
+			h = h2;			
+
+		}else if(cur_w > 1281 && cur_w <= 1366 ){
+			w = w1;
+			h = h1;
+		}
+		
+		$('.sm_quickview_handler').fancybox({
+			 width				: w,
+			 height				: h,
+			 autoSize			:  <?php echo Mage::getStoreConfig('quickview/general/auto_size'); ?>,
+			 scrolling          : 'auto',
+			 type				: 'ajax',
+			 openEffect		    : '<?php echo Mage::getStoreConfig('quickview/general/open_effect') ;?>',
+			 closeEffect		: '<?php echo Mage::getStoreConfig('quickview/general/close_effect'); ?>',
+			 helpers		    :{
+					<?php if((int)Mage::getStoreConfig('quickview/general/display_overlay')) { ?>
+					overlay : {
+						showEarly : true
+					}
+					<?php } else { ?>
+					overlay: null
+					<?php } ?>
+			 },
+			 beforeShow : function(){
+			 	
+				var $this = this.element, _parent = $this.parent().parent();
+					if(_parent.length > 0 ){
+						var _price_box =  _parent.find('.price-box');
+						if(_price_box.length > 0){
+							if($('[id]',_price_box).length > 0){
+								$('[id]',_price_box).each(function(i, el){
+									var id_price = $(el).attr('id');
+										 $(el).attr('data-idprice',id_price );
+										 $(el).attr('id',id_price+'_clone_sm');
+								});
+							}
+						}
+					}
+					if(typeof product_zoom){
+						product_zoom = 'undefined';
+					}
+			 },
+			 afterShow		: function(){
+			 	
+			 	
+			 		$('.quickview-main .price-box .special-price .price').each(function(i, el){
+			 				cur_id_price = $(el).attr('id');
+			 				$(el).attr('id',cur_id_price+'_clone');			 				
+			 		});
+			 		$('.quickview-main .price-box .old-price .price').each(function(i, el){
+			 				cur_id_price = $(el).attr('id');
+			 				$(el).attr('id',cur_id_price+'_clone');			 				
+			 		});
+			 		$('.quickview-main .price-box .regular-price').each(function(i, el){
+			 				cur_id_price = $(el).attr('id');
+			 				$(el).attr('id',cur_id_price+'_clone');			 				
+			 		});	
+			 	
+				if( _check_tem_def){
+					product_zoom_ = new Product.Zoom('image', 'track', 'handle', 'zoom_in', 'zoom_out', 'track_hint');
+				} 
+				if(_ceck_tem_rwd){ 
+					ProductMediaManager.initZoom();
+					ProductMediaManager.wireThumbnails();
+				} 
+				if(typeof initcajax != 'undefined' && $.isFunction(initcajax)){
+					initcajax();
+				}
+				
+				if(typeof updateProductCompareLinks != 'undefined' && $.isFunction(updateProductCompareLinks)){
+					updateProductCompareLinks();
+				}else{
+					$("a.link-compare").on ("click",function(e){
+							e.preventDefault();
+							urlcompare = $(this).attr("href");
+							urlcompare = urlcompare.replace("catalog/product_compare/add","quickview/index/compare");
+							window.location =  urlcompare;
+							return false;
+					  });
+				} 
+
+				if(typeof updateWishlistLinks != 'undefined' && $.isFunction(updateWishlistLinks)) {
+					updateWishlistLinks();
+				}	
+			},
+			beforeClose : function () {
+				if( _check_tem_def){
+					product_zoom_ = 'undefined';
+				}
+				if(_ceck_tem_rwd){
+					ProductMediaManager.destroyZoom();
+				}
+			},
+			afterClose : function(){
+				var $this = this.element, _parent = $this.parent().parent();
+				if(_parent.length > 0 ){
+					var _price_box =  _parent.find('.price-box');
+					if(_price_box.length > 0){
+						if($('[id]',_price_box).length > 0){
+							$('[id]',_price_box).each(function(i, el){
+								var id_price = $(el).attr('id'),
+									old_id_price = $(el).attr('data-idprice');
+									$(el).removeAttr('data-idprice');
+									$(el).attr('id',old_id_price);
+							});
+						}
+					}
+				}
+
+				
+			}
+		});
+		
+		setInterval(function(){ _SmQuickView(); } ,1000);
+	});
+	//]]>
+</script>

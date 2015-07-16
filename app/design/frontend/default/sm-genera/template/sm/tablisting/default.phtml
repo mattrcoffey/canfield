@@ -1,0 +1,79 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Tab Listing - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+
+$smarthelper = Mage::helper('tablisting/utils');
+$options = $this->getConfigObject();
+if( $options->type_tab_display == 'order' ){
+	$list = $this->getCategoryOrder();
+} else {
+	$list = $this->getCategory();
+}
+$id = $this->generateHash();
+
+$tag_id = 'yt_tablisting_'.rand().time();
+echo $this->getScriptTags();
+include 'default_js.phtml';
+$class_respl = 'respl00-'.$options->nb_column0.' respl01-'.$options->nb_column1.' respl02-'.$options->nb_column2.' respl03-'.$options->nb_column3.' respl04-'.$options->nb_column4
+?>
+<?php if(!empty($list)){ ?>
+<div id="<?php echo $tag_id; ?>" class="yt-tab-listing first-load">
+	
+	<div class="respl-wrap ">
+		
+		<div class="respl-tabs-container" data-ajaxurl="<?php echo Mage::getBaseUrl().'tablisting/index/ajax' ?>" data-modid="<?php echo $id; ?>"><!--Begin Tabs-->
+		<div class="tmp-left">
+			<h1><?php echo "New products";?></h1>
+			<?php if(!empty($options->pretext)) { ?>
+			<div class="pre-text"><?php echo $options->pretext; ?></div>
+			<?php } ?>
+		</div>
+		<?php include 'default_tabs.phtml'; ?>
+		
+		</div><!-- End Tabs-->
+		<div class="respl-items-container"><!--Begin Items-->
+			<?php foreach($list as $items) {
+				$child_items = isset($items->child)?$items->child:'';
+				$cls_device = $class_respl;
+				$cls = (isset($items->sel) && $items->sel  == "sel")?' respl-items-selected respl-items-loaded': '';
+				$cls .= ($items->id == "*")?' items-category-all':' items-category-'.$items->id;
+			?>
+			<div class="respl-items products-grid <?php echo $cls; ?>  <?php echo $cls_device; ?>" >
+				<div class="respl-items-inner">
+					<?php if(!empty($child_items)){
+						include 'default_items.phtml';
+					} else {?>
+					<div class="respl-loading"></div>
+					<?php } ?>
+				</div>
+				<?php $classloaded = ($options->product_limitation >= $items->count || $options->product_limitation == 0 )?'loaded':''; ?>
+				<div class="respl-loadmore " data-active-content=".items-category-<?php echo ($items->id == "*")?'all':$items->id; ?>" 
+				data-categoryid="<?php if($options->type_tab_display == 'order'){ echo "";}else{echo $items->id;}?>" data-orderid="<?php echo $items->orderid; ?>" data-rl_start="<?php echo $options->product_limitation;?>" 
+				data-rl_total="<?php echo $items->count; ?>" data-rl_allready="<?php echo $this->__('All ready');?>" 
+				data-ajaxurl="<?php echo Mage::getBaseUrl().'tablisting/index/ajax'; ?>" data-modid="<?php echo $id; ?>" data-type="<?php echo $options->type_tab_display; ?>" 
+				data-rl_load="<?php echo $options->product_limitation;?>" config-categoryid="<?php echo $options->product_category; ?>" >
+					<div class="respl-loadmore-btn <?php echo $classloaded?>" 
+					data-label="<?php echo ($classloaded)?$this->__('All ready'):$this->__('Load More');?>" data-label-load="<?php echo ($classloaded)?$this->__('All ready'):$this->__('Loading ...');?>" >
+					<?php if( $options->count_readmore_display ):?>
+					<span class="load-number" <?php if( $items->count >$options->product_limitation ){?> data-more="<?php if( $items->count - $options->product_limitation <= $options->product_limitation ){ echo "( ".($items->count - $options->product_limitation);}else{ echo "( ".$options->product_limitation; }?>" 
+					data-total="<?php  echo $items->count - $options->product_limitation ." )";?>"<?php }?>><?php if( $items->count > $options->product_limitation ){?>/<?php }?></span>	
+					<?php endif;?>					
+					<span class="respl-image-loading"></span>
+					</div>
+				</div>
+				
+			</div>
+			<?php } ?>
+		</div><!--End Items-->
+	</div>
+	<?php if(!empty($options->posttext)) {  ?>
+	<div class="post-text"><?php echo $options->posttext; ?></div>
+	<?php } ?>
+</div>
+<?php } else { echo $this->__('Has no item to show!');}?>
+

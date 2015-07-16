@@ -1,0 +1,25 @@
+<?xml version="1.0"?>   
+<layout version="1.0">
+	<default>
+        <reference name="head">
+        	<action method="addCss"><stylesheet>sm/dynamicslideshow/css/sm-dynamicslideshow.css</stylesheet></action>
+        	<action method="addCss"><stylesheet>sm/dynamicslideshow/css/sm-dynamicslideshow-settings.css</stylesheet></action>
+        </reference>
+        <!-- all pages
+        <reference name="content">
+        	<block type="dynamicslideshow/list" name="default.dynamicslideshow.list">
+			</block>
+        </reference>
+        -->
+    </default>
+	<dynamicslideshow_index_index>
+		<reference name="content">
+			<block type="dynamicslideshow/list" name="dynamicslideshow.list.default">
+				<action method="setConfig">
+				</action>
+			</block>
+		</reference>
+		<remove name="left" />
+	</dynamicslideshow_index_index>	
+</layout>   
+	

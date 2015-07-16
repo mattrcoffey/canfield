@@ -1,0 +1,20 @@
+.sm-deal-wrap{
+	padding: 0;
+	margin: 0;	
+	float:left;
+	width: 100%;
+}
+.sm-deal-wrap  .sm-deal-inner{
+	float:left;
+}
+.sm-deal-wrap .deal-list-item{
+	float: left;
+	width: 100%;
+}
+.sm-deal-wrap .item-deal{
+	float: left;
+	width: 25%;
+	padding-left: 30px;
+	box-sizing: border-box;
+}
+

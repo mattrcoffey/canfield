@@ -1,0 +1,40 @@
+<?php
+/*------------------------------------------------------------------------
+ # SM Tab Listing - Version 1.0
+ # Copyright (c) 2013 YouTech Company. All Rights Reserved.
+ # @license - Copyrighted Commercial Software
+ # Author: YouTech Company
+ # Websites: http://www.magentech.com
+-------------------------------------------------------------------------*/
+$smarthelper = Mage::helper('tablisting/utils');
+$child_items = $this->getAjaxProducts();
+if( !empty($child_items) ) {
+	$k = 0;
+	foreach($child_items  as $item){ $k++; ?>
+	<div class="respl-item">
+		<div class="item-inner">
+			<div class="item-image">
+				<a class="rspl-image" href="<?php echo $item->link ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true"; title="<?php echo $item->title?>" >
+					<img src="<?php echo $item->image;?>"  alt="<?php echo $item->title;?>" />
+				</a>
+			</div>
+			<?php if( $options->item_title_display == 1 ){?>
+			<div class="item-title ">
+				<a href="<?php echo $item->link ?>" <?php echo $smarthelper->getTargetAttr($options->product_links_target);?> onclick="javascript: return true";  title="<?php echo $item->title?>" >
+					<?php echo $item->title; ?>
+				</a>
+			</div>
+			<?php }?>
+		</div>
+	</div>
+	
+	<?php $clear = 'clr1';
+	if ($k % 2 == 0) $clear .= ' clr2';
+	if ($k % 3 == 0) $clear .= ' clr3';
+	if ($k % 4 == 0) $clear .= ' clr4';
+	if ($k % 5 == 0) $clear .= ' clr5';
+	if ($k % 6 == 0) $clear .= ' clr6';
+	?>
+	<div class="<?php echo $clear; ?>"></div>
+<?php }
+}?>

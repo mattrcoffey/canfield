@@ -1,0 +1,211 @@
+/* Using CSS3 for some visual enhancements. (Will be degraded
+	nicely for non-CSS3 browsers.)
+-------------------------------------------------------------*/
+/* .sm_megamenu_wrapper_horizontal_menu .sm_megamenu_menu li ul.list-sub-custom li:hover, */
+.cms-home .sj-extraslider .extraslider-control.button-type2 .button-prev:hover span, 
+.cms-home .sj-extraslider .extraslider-control.button-type2 .button-next:hover span, 
+.cms-home-1-column .sj-extraslider .extraslider-control.button-type2 .button-prev:hover span, 
+.cms-home-1-column .sj-extraslider .extraslider-control.button-type2 .button-next:hover span,
+.wrap-brand .wrap-img:hover,
+#yt_footer .block-content-info li,
+#yt_footer .block-content-info li:hover,
+#yt_footer .block-content-info li a,
+#yt_footer .paypal li,
+.wrap-atc-ex a,
+.wrap-img-banner .banner-des a:hover:before,
+.wrap-w-c-ex .btn-wishlist,
+.wrap-w-c-ex .btn-compare,
+.products-grid  .wrap-w-c-ex .btn-compare, 
+.products-grid .wrap-w-c-ex .btn-wishlist,
+.yt-slider .container-slider .page-button .control-button .preview,
+.yt-slider .container-slider .page-button .control-button .next,
+.yt-slider .container-slider .slider .vpo-wrap .vp .item .item-wrap .item-info,
+.yt-tab-listing .item-addto-wrap,
+.yt-tab-listing .item-image:hover .item-addto-wrap,
+.yt-tab-listing .item-addto-wrap .item-addcart,
+.yt-tab-listing .item-addto-wrap .item-wishlist,
+.yt-tab-listing .item-addto-wrap .item-compare,
+.yt-tab-listing .item-addto-wrap .item-addcart:hover,
+.yt-tab-listing .item-addto-wrap .item-wishlist:hover,
+.yt-tab-listing .item-addto-wrap .item-compare:hover,
+#yt_main .products-grid .product-addcart,
+#yt_main .products-grid .product-wishlist,
+#yt_main .products-grid .product-compare,
+#yt_main .products-list .product-addcart,
+#yt_main .products-list .product-wishlist,
+#yt_main .products-list .product-compare,
+#yt_main .products-grid .product-addcart:hover,
+#yt_main .products-grid .product-wishlist:hover,
+#yt_main .products-grid .product-compare:hover,
+#yt_main .products-list .product-addcart:hover,
+#yt_main .products-list .product-wishlist:hover,
+#yt_main .products-list .product-compare:hover,
+.sm_quickview_handler,
+.yt-tab-listing .respl-items .respl-item .item-image:hover .sm_quickview_handler,
+#yt_main .products-grid .product-image:hover .sm_quickview_handler,
+#yt_main .products-list .product-image:hover .sm_quickview_handler,
+.container-slider .slider .vpo-wrap .vp .item .item-wrap .item-img .sm_quickview_handler,
+.container-slider .slider .vpo-wrap .vp .item .item-wrap .item-img:hover .sm_quickview_handler,
+.yt-product-detail .yt-detail-right .add-to-cart,
+.yt-product-detail .yt-detail-right .product-add-box .wishlist,
+.yt-product-detail .yt-detail-right .product-add-box .compare,
+.yt-product-detail .yt-detail-right .add-to-cart:hover,
+.yt-product-detail .yt-detail-right .product-add-box .wishlist:hover,
+.yt-product-detail .yt-detail-right .product-add-box .compare:hover,
+#yt_main .products-list .wrap-w-c-ex .email-friend:hover,
+.banner-lc a:hover,
+.slider-media .item-img-info:hover, 
+/*
+.slider-media .item-img-info:hover .s-zoom,
+.slider-media .item-img-info .s-zoom,*/
+
+.slider-media .page-button .control-button .preview:hover span, 
+/* .slider-media .page-button .control-button .next:hover span, */
+.menu-custom3  .sm_megamenu_content .w-a:hover img,
+.menu-custom3  .sm_megamenu_content .w-a img,
+.au-row3 .item .au-info ul li.fb,
+.au-row3 .item .au-info ul li.fb:hover,
+.au-row3 .item .au-info ul li.tw,
+.au-row3 .item .au-info ul li.tw:hover,
+.au-row3 .item .au-info ul li.likein:hover,
+.au-row3 .item .au-info ul li.likein,
+.au-row3 .item .au-info ul li.pr:hover,
+.au-row3 .item .au-info ul li.pr,
+.au-row3 .item .au-info ul li.gp:hover,
+.au-row3 .item .au-info ul li.gp,
+#yt_wrapper .button:hover,
+#yt_wrapper .button,
+.fa-caret-right:hover span:before,
+.fa-caret-right span:before,
+.yt-product-detail .wrap-qty input.quantity-plus:hover, 
+.yt-product-detail .wrap-qty input.quantity-minus:hover,
+.yt-product-detail .wrap-qty input.quantity-plus, 
+.yt-product-detail .wrap-qty input.quantity-minus,
+/* .col-3 .col-left:hover:before,
+.col-3 .col-left:before,
+.col-2 .col-left:hover:before,
+.col-2 .col-left:before,
+.col-1 .col-left:hover:before,
+.col-1 .col-left:before,
+.col-4 .col-left:hover:before,
+.col-4 .col-left:before,
+.col-5 .col-left:hover:before,
+.col-5 .col-left:before, */
+.toolbar .view-mode strong.list, 
+.toolbar .view-mode a.list:hover,
+.toolbar .view-mode a.list,
+.toolbar .view-mode strong.grid, 
+.toolbar .view-mode a.grid:hover,
+.toolbar .view-mode a.grid,
+.more-de:hover,
+.more-de
+{
+	-moz-transition: all 0.3s ease-in-out 0s;
+	-webkit-transition: all 0.3s ease-in-out 0s;
+	-o-transition: all 0.3s ease-in-out 0s;
+	-ms-transition: all 0.3s ease-in-out 0s;
+	transition: all 0.3s ease-in-out 0s;
+}
+.yt-extraslider .banner-content .b-col-left:hover:before,
+.yt-extraslider .banner-content .b-col-right:hover:before{
+		-moz-transition: all 1s ease-in-out 0s;
+	-webkit-transition: all 1s ease-in-out 0s;
+	-o-transition: all 1s ease-in-out 0s;
+	-ms-transition: all 1s ease-in-out 0s;
+	transition: all 1s ease-in-out 0s;
+}
+
+/* .sj-extraslider .extraslider-inner .item-wrap:hover .item-info .g1,
+.sj-extraslider .extraslider-inner .item-wrap:hover .item-info .g2{
+		-moz-transition: all 2s ease-in-out 0s;
+	-webkit-transition: all 2s ease-in-out 0s;
+	-o-transition: all 2s ease-in-out 0s;
+	-ms-transition: all 2s ease-in-out 0s;
+	transition: all 2s ease-in-out 0s;
+} */
+
+.cms-home .sj-extraslider .extraslider-inner .item-wrap:hover .item-info, 
+.cms-home-1-column .sj-extraslider .extraslider-inner .item-wrap:hover .item-info,
+.cms-home .sj-extraslider .extraslider-inner .item-wrap .item-info, 
+.cms-home-1-column .sj-extraslider .extraslider-inner .item-wrap .item-info,
+
+.sj-extraslider .extraslider-inner .item-wrap .item-info .g1,
+
+.sj-extraslider .extraslider-inner .item-wrap .item-info .g2,
+.products-grid .item .product-addto-wrap,
+/* .slider-media .page-button .control-button .preview:hover span, 
+.slider-media .page-button .control-button .next:hover span,
+.slider-media .page-button .control-button .preview span, 
+.slider-media .page-button .control-button .next span, */
+.mega-bestsale .list-items .item:hover .item-inner:before,
+.block-banner a img,
+.block-banner a:hover img,
+.block-banner a,
+#yt_footer .yt-footer-bottom .block-payment  img:hover,
+#yt_footer .yt-footer-bottom .block-payment img,
+.mg-menu-image .mg-menu-image-item:hover img,
+.mg-menu-image .mg-menu-image-item img,
+#yt_main .products-list .product-image:hover img,
+#yt_main .products-list .product-image img,
+#yt_main .products-grid .product-image:hover img,
+#yt_main .products-grid .product-image img,
+#yt_wrapper #yt_left .left-banner:hover img,
+#yt_wrapper #yt_left .left-banner img,
+.members .member .member-img:hover img,
+.members .member .member-img img,
+.onpen-sidebar #yt_wrapper > .wrap,
+#yt_wrapper > .wrap,
+.yt_ressidebar_screennav,
+ul.nav-menu li.parent > .res-wrapnav,
+ul.nav-menu li.parent.open > .res-wrapnav,
+#yt_main .products-list .product-image:hover  .quick-view-ex,
+#yt_main .products-list .quick-view-ex,
+.wrap-w-c-ex .btn-wishlist:hover,
+.wrap-w-c-ex .btn-compare:hover,
+.wrap-s1:hover .wi,
+.wrap-s2:hover .wi,
+.wrap-s3:hover .wi,
+.wrap-s1:hover .wi img,
+.wrap-s2:hover .wi img,
+.wrap-s3:hover .wi img,
+.wi img,
+.au-row3 .item,
+.au-row3 .item:hover,
+.au-row3 .item:hover .au-info,
+.au-row3 .item .au-info,
+.au-row1 .au-col2 .w-img:hover img,
+.au-row1 .au-col2 .w-img img,
+.products-grid .item:hover .g1,
+.products-grid .item:hover .g2,
+.onpen-sidebar #yt_wrapper,
+#yt_wrapper,
+.yt_ressidebar_screennav{
+	-moz-transition: all 0.5s ease-in-out 0s;
+	-webkit-transition: all 0.5s ease-in-out 0s;
+	-o-transition: all 0.5s ease-in-out 0s;
+	-ms-transition: all 0.5s ease-in-out 0s;
+	transition: all 0.5s ease-in-out 0s;
+}
+
+#yt_footer .yt-footer-bottom .block-payment img:hover,
+.mg-menu-image .mg-menu-image-item:hover img,
+#yt_wrapper #yt_left .left-banner:hover img,
+.members .member .member-img:hover img,
+.block-banner a:hover img,
+.wrap-s1:hover .wi  img,
+.wrap-s2:hover .wi img,
+.wrap-s3:hover .wi img,
+.au-row1 .au-col2 .w-img:hover img{
+	transform: scale(1.2) rotate(0deg);
+	-ms-transform: scale(1.2) rotate(0deg);
+	-moz-transform: scale(1.2) rotate(0deg);
+	-webkit-transform: scale(1.2) rotate(0deg);
+	-o-transform: scale(1.2) rotate(0deg);	
+}
+.menu-custom3  .sm_megamenu_content  .w-a:hover img{
+	transform: scale(1.2) rotate(0deg);
+	-ms-transform: scale(1.2) rotate(0deg);
+	-moz-transform: scale(1.2) rotate(0deg);
+	-webkit-transform: scale(1.2) rotate(0deg);
+	-o-transform: scale(1.2) rotate(0deg);	
+}

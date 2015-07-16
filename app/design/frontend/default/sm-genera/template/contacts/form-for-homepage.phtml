@@ -1,0 +1,37 @@
+<div id="messages_product_view"><?php echo $this->getMessagesBlock()->getGroupedHtml() ?></div>
+<form action="<?php echo Mage::getUrl(); ?>contacts/index/post/" id="contactForm" method="post">
+    <?php echo $this->getBlockHtml('formkey')?>       
+    <ul class="form-list">
+        <li class="fields">
+            <div class="field">
+                <div class="input-box">
+                    <input name="name" id="name" title="<?php echo Mage::helper('contacts')->__('Your name') ?>" onfocus="if(this.value=='Your name...') this.value=''" onblur="if(this.value=='') this.value='<?php echo Mage::helper('contacts')->__('Your name...') ?>'" value="<?php echo ($this->helper('contacts')->getUserName())?$this->htmlEscape($this->helper('contacts')->getUserName()):Mage::helper('contacts')->__('Your name...'); ?>" class="input-text required-entry" type="text" />
+                </div>
+            </div>
+            <div class="field clr">               
+                <div class="input-box">                     
+                    <input name="email" id="email" title="<?php echo Mage::helper('contacts')->__('Your email') ?>" onfocus="if(this.value=='Your email...') this.value=''" onblur="if(this.value=='') this.value='<?php echo Mage::helper('contacts')->__('Your email...') ?>';" value="<?php echo ($this->helper('contacts')->getUserEmail())?$this->htmlEscape($this->helper('contacts')->getUserEmail()):Mage::helper('contacts')->__('Your email...'); ?>" class="input-text required-entry validate-email" type="text" />
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="input-box">
+                <input name="telephone" id="telephone" title="<?php echo Mage::helper('contacts')->__('Telephone') ?>" value="Your phone..." class="input-text" type="text" onfocus="if(this.value=='Your phone...') this.value=''" onblur="if(this.value=='') this.value='Your phone...'" />
+            </div>
+        </li>
+        <li class="wide">            
+            <div class="input-box">
+                <textarea name="comment" id="comment" title="<?php echo Mage::helper('contacts')->__('Comment') ?>" onfocus="if(this.value=='Comment...') this.value=''" onblur="if(this.value=='') this.value='<?php echo Mage::helper('contacts')->__('Comment...') ?>'" class="required-entry input-text" cols="10" rows="7"><?php echo Mage::helper('contacts')->__('Comment...') ?></textarea>
+            </div>
+        </li>
+    </ul>    
+    <div class="buttons-set">        
+        <input type="text" name="hideit" id="hideit" value="" style="display:none !important;" />
+        <button type="submit" title="<?php echo Mage::helper('contacts')->__('Submit') ?>" class="button"><span><span><?php echo Mage::helper('contacts')->__('Send Email') ?></span></span></button>
+    </div>
+</form>
+<script type="text/javascript">
+//<![CDATA[
+    var contactForm = new VarienForm('contactForm', false);
+//]]>
+</script>

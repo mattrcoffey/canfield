@@ -1,0 +1,247 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2013 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+include (dirname(dirname(__FILE__)).'/sm/yt_prepar.php');
+global $var_yttheme;
+?>
+<meta http-equiv="Content-Type" content="<?php echo $this->getContentType() ?>" />
+<title><?php echo $this->getTitle() ?></title>
+<meta name="description" content="<?php echo htmlspecialchars($this->getDescription()) ?>" />
+<meta name="keywords" content="<?php echo htmlspecialchars($this->getKeywords()) ?>" />
+<meta name="robots" content="<?php echo htmlspecialchars($this->getRobots()) ?>" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+<link rel="icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<link rel="shortcut icon" href="<?php echo $this->getFaviconFile(); ?>" type="image/x-icon" />
+<!--[if lt IE 7]>
+<script type="text/javascript">
+//<![CDATA[
+    var BLANK_URL = '<?php echo $this->helper('core/js')->getJsUrl('blank.html') ?>';
+    var BLANK_IMG = '<?php echo $this->helper('core/js')->getJsUrl('spacer.gif') ?>';
+//]]>
+</script>
+<![endif]-->
+<?php echo $this->getCssJsHtml() ?>
+<?php echo $this->getChildHtml() ?>
+<?php echo $this->helper('core/js')->getTranslatorScript() ?>
+<?php echo $this->getIncludes() ?>
+<script type="text/javascript">
+//<![CDATA[
+	var SKIN_URL = '<?php echo $var_yttheme->skinurl();?>';
+	var TMPL_NAME = '<?php echo $var_yttheme->template;?>';
+	var TMPL_COOKIE = <?php echo json_encode($paramscookie); ?>;
+//]]>
+</script>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/theme-'.$var_yttheme->getParam('sitestyle').'.css') ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/menu.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/yt-responsive.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/jquery.fancybox.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/jquery.fancybox-buttons.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/cloudzoom.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('sm/megamenu/css/horizontal/black/megamenu.css');?>" type="text/css" />
+<?php if( $var_yttheme->getParam('showCpanel') ) { ?>
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/new_cpanel.css'); ?>" type="text/css" />
+<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/minicolors/jquery.miniColors.css'); ?>" type="text/css" />
+<?php } ?>
+
+<?php 
+if( isset($_SERVER['HTTPS'] )  && $_SERVER['HTTPS'] != 'off' ) {
+    $http = 'https';
+} else {
+    $http = 'http';
+}
+$googleWebFont = $var_yttheme->getParam('googleWebFont');
+$googleWebFontTargets = $var_yttheme->getParam('googleWebFontTargets');
+if ( $googleWebFont != "" && $googleWebFont != "" ) {
+	$googleWebFontFamily = str_replace(" ","+",$googleWebFont);
+	$googleWebFontFamily = strpos($googleWebFontFamily, ':')?substr($googleWebFontFamily, 0, strpos($googleWebFontFamily, ':')):$googleWebFontFamily;
+}
+?>
+<link rel="stylesheet" type="text/css" href="<?php echo $http;?>://fonts.googleapis.com/css?family=<?php echo $googleWebFontFamily; ?>:300,400,700," media="all" />
+
+<style type="text/css">
+<?php
+// Body Font size
+echo 'body{	
+		font-size:'.$var_yttheme->getParam('fontsize').';	
+	}';	
+if( trim($var_yttheme->getParam('font_name'))!='' )
+	echo '
+		body.{
+			font-family:'.$var_yttheme->getParam('font_name').',sans-serif;	
+
+		}
+		';
+if( trim($googleWebFontTargets)!="" )
+	echo $googleWebFontTargets.'{
+			font-family:'.$googleWebFont.', serif !important;
+			font-weight: 300 !important;
+		}';
+	echo '
+		body.'.$var_yttheme->template.'{	
+			color:'.$var_yttheme->getParam('textcolor').' ;
+		}
+		body.'.$var_yttheme->template.'{	
+			background-color:'.$var_yttheme->getParam('bgcolor').' ;
+		}
+		body a{	
+			color:'.$var_yttheme->getParam('linkcolor').' ;	
+		}';
+?>
+</style>
+<?php if ( null == Mage::registry('jsmart.jquery') ){
+	// if module allowed jquery.
+	Mage::register('jsmart.jquery', 1); ?>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery-1.7.2.min.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jsmart.noconflict.js') ?>"></script>
+<?php } ?>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.uniform.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.jqtransform.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('bootstrap/js/bootstrap.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/cloud-zoom.1.0.2.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jcarousellite_1.0.1.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.easing.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/yt-script.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/yt-extend.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.cookie.min.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.accordion_snyderplace.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/respond.src.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.fancybox.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/fancybox-buttons.js') ?>"></script>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery.session.js') ?>"></script>
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/slider-ru.js') ?>"></script>
+<?php if( $var_yttheme->getParam('showCpanel') ) { ?>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/ytcpanel.js') ?>"></script>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/minicolors/jquery.miniColors.min.js') ?>"></script>
+<?php } ?>
+<script type="text/javascript">
+//<![CDATA[
+	$jsmart(function($){ 
+	//style for select option, radio...
+	$(".quick-info .chk-remember input[type='checkbox']").uniform(); 
+	$("#narrow-by-list input[type='checkbox']").uniform();
+	/* if(navigator.userAgent.indexOf("Firefox")!=-1){
+        $("#product-options-wrapper select").uniform();
+    }
+    else if(navigator.userAgent.indexOf("Opera")!=-1){
+        $("#product-options-wrapper select").uniform();
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1){
+        $("#product-options-wrapper select").uniform();
+    }
+    else if(navigator.userAgent.indexOf("Safari")!=-1){
+       $("#product-options-wrapper select").uniform();
+    } */
+	
+	});
+//]]>
+</script>
+<script type="text/javascript">
+
+	if(navigator.userAgent.indexOf("MSIE")!=-1){
+		var Browser = {
+			IsIe: function () {
+				return navigator.appVersion.indexOf("MSIE") != -1;
+			},
+			Navigator: navigator.appVersion,
+			Version: function() {
+				var version = 999; // we assume a sane browser
+				if (navigator.appVersion.indexOf("MSIE") != -1)
+					// bah, IE again, lets downgrade version number
+					version = parseFloat(navigator.appVersion.split("MSIE")[1]);
+				return version;
+			}
+		};
+
+		if (Browser.IsIe && Browser.Version() >= 9) {
+			document.write('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/ie.css'); ?>" type="text/css" />');
+		}else{
+			document.write('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/ie8.css'); ?>" type="text/css" />');
+		}
+    }
+    else if(navigator.userAgent.indexOf("Firefox")!=-1){
+        name = "Firefox";
+    }
+    else if(navigator.userAgent.indexOf("Opera")!=-1){
+        name = "Opera";
+    }
+    else if(navigator.userAgent.indexOf("Chrome") != -1){
+        document.write('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/chrome.css'); ?>" type="text/css" />');
+    }
+    else if(navigator.userAgent.indexOf("Safari")!=-1){
+        document.write('<link rel="stylesheet" href="<?php echo $this->getSkinUrl('css/safari.css'); ?>" type="text/css" />');
+    }
+</script>
+<script type="text/javascript">
+//<![CDATA[
+	$jsmart(function($) {
+		//change select,option -> ul,li	
+		//$("select").jqTransform();		
+		//$(".wrap-sb").jqTransform();
+		//$(".wrap-show").jqTransform();
+		$(".block-currency").jqTransform();
+		$(".block-language").jqTransform();	
+		$(".block-language .jqTransformSelectWrapper").each(function(){
+			arr_bg = new Array();
+			arr_tit = new Array(); i=0;
+			$(this).find('select option').each(function(){
+				arr_bg[i] = $(this).css('background-image'); 
+				arr_tit[i] = $(this).attr('title');
+				i++;
+			})
+			j=0;
+			$(this).find('ul li').each(function(){
+				if(arr_bg[j]!="none"){
+					$(this).find('a').css('background-image', arr_bg[j]);
+				}
+				$(this).find('a').attr('title', arr_tit[j]);
+				j++;
+			});
+		});
+		$('.block-language .jqTransformSelectWrapper ul li a.selected,.block-language .jqTransformSelectWrapper div span').css('background-image', $('#select-language option[selected="selected"]').css('background-image'));
+		$('.block-language .jqTransformSelectWrapper div span').attr('title', $('#select-language option[selected="selected"]').attr('title'));
+
+	});
+//]]>	
+
+</script>
+<script type="text/javascript">
+	jQuery(window).load(function() {
+	    jQuery(".preload").fadeOut(1000);
+	});
+	jQuery(document).ready(function($){
+		$('#yt_sidenav > li > a > span').each(
+			function( index ) {
+				str = $( this ).text().toLowerCase();
+				if(str === 'about us' || str ==="contact us" || str=="blog"){
+					$( this ).parent().parent().remove();
+				}
+				
+			}
+		);   		
+	})
+</script>
+
+
