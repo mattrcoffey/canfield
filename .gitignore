@@ -1,3 +1,5 @@
+tmp/
+error_log
 *.sql
 *.zip
 *.tar.gz
