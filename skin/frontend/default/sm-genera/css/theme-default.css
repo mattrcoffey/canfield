@@ -2118,13 +2118,13 @@ tr.summary-details-excluded {
   padding-right: 0;
 }
 .preload {
-  position: fixed;
+  /*position: fixed;
   left: 0px;
   top: 0px;
   width: 100%;
   height: 100%;
   z-index: 99999;
-  background: #ffffff url('../images/block-loading.gif') no-repeat center center;
+  background: #ffffff url('../images/block-loading.gif') no-repeat center center;*/
 }
 /*-----------------contact form--------------*/
 #contactForm .field {
